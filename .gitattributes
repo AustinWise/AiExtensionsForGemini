@@ -1,0 +1,6 @@
+
+# Normalize line endings.
+* text=auto
+
+# Don't try to diff these binary files.
+*.binarypb binary

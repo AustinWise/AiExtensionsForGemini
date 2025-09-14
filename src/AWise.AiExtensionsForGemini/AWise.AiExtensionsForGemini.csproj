@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<OurProtobufFiles Include="../../googleapis/google/ai/generativelanguage/v1beta/*.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/type/interval.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/longrunning/operations.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/annotations.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/client.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/field_behavior.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/resource.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/launch_stage.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/api/http.proto" />
+		<OurProtobufFiles Include="../../googleapis/google/rpc/status.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="@(OurProtobufFiles)" GrpcServices="Client" Access="Internal" ProtoRoot="../../googleapis" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.32.1" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.72.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
