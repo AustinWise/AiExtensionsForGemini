@@ -1,0 +1,28 @@
+﻿{
+  Messages: [
+    {
+      Role: {
+        Value: assistant
+      },
+      Text:
+Voici la traduction en français :
+
+**Pourquoi le ciel est-il bleu ?**,
+      Contents: [
+        {
+          Text:
+Voici la traduction en français :
+
+**Pourquoi le ciel est-il bleu ?**
+        }
+      ]
+    }
+  ],
+  Text:
+Voici la traduction en français :
+
+**Pourquoi le ciel est-il bleu ?**,
+  FinishReason: {
+    Value: stop
+  }
+}

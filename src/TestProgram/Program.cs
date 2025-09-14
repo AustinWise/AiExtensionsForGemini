@@ -2,9 +2,6 @@
 using Microsoft.Extensions.AI;
 using static Google.Api.Gax.Grpc.ClientHelper;
 
-string projectId = "ai-test-414105";
-string location = "us-central1";
-string publisher = "google";
 string model = "models/gemini-2.5-flash-lite";
 
 var client = new GenerativeServiceChatClient(new GenerativeServiceClientBuilder()
@@ -16,6 +13,14 @@ var client = new GenerativeServiceChatClient(new GenerativeServiceClientBuilder(
 Console.WriteLine("Trying GetResponse:");
 var response = await client.GetResponseAsync(new ChatMessage(ChatRole.User, "Say hi."));
 Console.WriteLine(response);
+Console.WriteLine();
+
+Console.WriteLine("Trying GetStreamingResponseAsync:");
+await foreach (var update in client.GetStreamingResponseAsync(new ChatMessage(ChatRole.User, "Please write a poem in iambic pentameter about a turtle who likes to eat strawberries.")))
+{
+    Console.Write(update.Text);
+}
+Console.WriteLine();
 Console.WriteLine();
 
 Console.WriteLine("DONE!");

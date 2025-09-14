@@ -3,6 +3,7 @@ using Google.Api.Gax;
 using Google.Api.Gax.Grpc;
 using Google.Protobuf.Reflection;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,6 +46,12 @@ public sealed class GenerativeServiceClientBuilder
         set => _builder.ApiKey = value;
     }
 
+    public Interceptor? Interceptor
+    {
+        get => _builder.Interceptor;
+        set => _builder.Interceptor = value;
+    }
+
     sealed class RealGenerativeServiceClientBuilder : ClientBuilderBase<GenerativeService.GenerativeServiceClient>
     {
         private static IEnumerable<FileDescriptor> GetFileDescriptors()
@@ -63,15 +70,26 @@ public sealed class GenerativeServiceClientBuilder
         {
         }
 
-        public override GenerativeService.GenerativeServiceClient Build()
+        public Interceptor? Interceptor { get; set; }
+
+        private CallInvoker WrapCallInvoker(CallInvoker callInvoker)
         {
-            Validate();
-            var invoker = CreateCallInvoker();
             if (!string.IsNullOrEmpty(ApiKey))
             {
                 // TODO: there has to an easier way to get the ApiKey into the headers.
-                invoker = new ApyKeyCallInvoker(ApiKey, invoker);
+                callInvoker = new ApyKeyCallInvoker(ApiKey, callInvoker);
             }
+            if (Interceptor != null)
+            {
+                callInvoker = callInvoker.Intercept(Interceptor);
+            }
+            return callInvoker;
+        }
+
+        public override GenerativeService.GenerativeServiceClient Build()
+        {
+            Validate();
+            var invoker = WrapCallInvoker(CreateCallInvoker());
             var ret = new GenerativeService.GenerativeServiceClient(invoker);
             return ret;
         }
@@ -79,12 +97,7 @@ public sealed class GenerativeServiceClientBuilder
         public override async Task<GenerativeService.GenerativeServiceClient> BuildAsync(CancellationToken cancellationToken = default)
         {
             Validate();
-            var invoker = await CreateCallInvokerAsync(cancellationToken);
-            if (!string.IsNullOrEmpty(ApiKey))
-            {
-                // TODO: there has to an easier way to get the ApiKey into the headers.
-                invoker = new ApyKeyCallInvoker(ApiKey, invoker);
-            }
+            var invoker = WrapCallInvoker(await CreateCallInvokerAsync(cancellationToken));
             var ret = new GenerativeService.GenerativeServiceClient(invoker);
             return ret;
         }

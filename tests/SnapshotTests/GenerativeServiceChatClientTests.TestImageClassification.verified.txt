@@ -1,0 +1,19 @@
+﻿{
+  Messages: [
+    {
+      Role: {
+        Value: assistant
+      },
+      Text: The shape in the picture is a **circle**.,
+      Contents: [
+        {
+          Text: The shape in the picture is a **circle**.
+        }
+      ]
+    }
+  ],
+  Text: The shape in the picture is a **circle**.,
+  FinishReason: {
+    Value: stop
+  }
+}

@@ -1,0 +1,19 @@
+﻿{
+  Messages: [
+    {
+      Role: {
+        Value: assistant
+      },
+      Text: Pourquoi le ciel est-il bleu ?,
+      Contents: [
+        {
+          Text: Pourquoi le ciel est-il bleu ?
+        }
+      ]
+    }
+  ],
+  Text: Pourquoi le ciel est-il bleu ?,
+  FinishReason: {
+    Value: stop
+  }
+}
