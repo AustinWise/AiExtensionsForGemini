@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/AWise.AiExtensionsForGemini/AWise.AiExtensionsForGemini.csproj" Id="80ab6bec-c0b9-46db-884f-6a58db9ff280" />
+    <Project Path="src/TestProgram/TestProgram.csproj" Id="781a1040-b483-4cb2-ad0a-0be1a1a80d3f" />
   </Folder>
 </Solution>
