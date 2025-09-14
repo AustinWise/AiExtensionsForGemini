@@ -1,0 +1,35 @@
+on:
+  push:
+    tags:
+    - "v[0-9]+.[0-9]+.[0-9]+"
+    - "v[0-9]+.[0-9]+.[0-9]+-preview[0-9][0-9][0-9]"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Verify commit exists in origin/main
+      run: |
+        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+        git branch --remote --contains | grep origin/main
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+    - name: Build
+      run: dotnet build --configuration Release /p:Version=${VERSION} src/AWise.AiExtensionsForGemini/AWise.AiExtensionsForGemini.csproj
+    - name: Pack
+      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output . src/AWise.AiExtensionsForGemini/AWise.AiExtensionsForGemini.csproj
+    - name: Push
+      run: dotnet nuget push AWise.AiExtensionsForGemini.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_API}
+      env:
+        # get a new API key here:
+        # https://www.nuget.org/account/apikeys
+        # and put it here:
+        # https://github.com/AustinWise/AiExtensionsForGemini/settings/secrets/actions
+        NUGET_API: ${{ secrets.NUGET_API }}
