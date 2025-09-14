@@ -9,7 +9,8 @@ namespace SnapshotTests;
 
 public abstract class TestBase
 {
-    protected const string FLASH_MODEL_NAME = $"models/gemini-2.5-flash-lite";
+    protected const string FLASH_LITE_MODEL_NAME = $"models/gemini-2.5-flash-lite";
+    protected const string PRO_MODEL_NAME = $"models/gemini-2.5-pro";
 
     private static bool IsRecording { get; } = GetIsRecording();
 

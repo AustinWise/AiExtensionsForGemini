@@ -230,6 +230,7 @@ public class GenerativeServiceChatClient : IChatClient
                             var responseSchema = ProtoJsonConversions.ConvertJsonElementToValue(function.ReturnJsonSchema.Value);
                             if (responseSchema.StructValue.Fields["type"].StringValue != "object")
                             {
+                                // The API only supports a Struct for the response, see other references to TOOL_RESULT_NAME for more details.
                                 responseSchema = new Google.Protobuf.WellKnownTypes.Value()
                                 {
                                     StructValue = new Google.Protobuf.WellKnownTypes.Struct()

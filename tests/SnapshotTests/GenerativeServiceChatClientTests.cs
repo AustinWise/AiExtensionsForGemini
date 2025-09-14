@@ -10,7 +10,7 @@ public class GenerativeServiceChatClientTests : TestBase
     public async Task TestBasicTextGeneration()
     {
         var vertex = CreatePredictionServiceClient();
-        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_MODEL_NAME);
+        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_LITE_MODEL_NAME);
 
         var res = await client.GetResponseAsync(new ChatMessage(ChatRole.User, "Say Hi."));
 
@@ -21,7 +21,7 @@ public class GenerativeServiceChatClientTests : TestBase
     public async Task TestImageClassification()
     {
         var vertex = CreatePredictionServiceClient();
-        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_MODEL_NAME);
+        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_LITE_MODEL_NAME);
         List<ChatMessage> chatMessage =
         [
             new ChatMessage(ChatRole.User, [new DataContent(Properties.Resources.circle, "image/png")]),
@@ -37,7 +37,7 @@ public class GenerativeServiceChatClientTests : TestBase
     public async Task TestSystemInstructions()
     {
         var vertex = CreatePredictionServiceClient();
-        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_MODEL_NAME);
+        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_LITE_MODEL_NAME);
         var options = new ChatOptions()
         {
             Instructions = "You're a language translator. Your mission is to translate text in English to French.",
@@ -52,7 +52,7 @@ public class GenerativeServiceChatClientTests : TestBase
     public async Task TestSystemMessage()
     {
         var vertex = CreatePredictionServiceClient();
-        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_MODEL_NAME);
+        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_LITE_MODEL_NAME);
         List<ChatMessage> chatMessage =
         [
             new ChatMessage(ChatRole.System, "You're a language translator. Your mission is to translate text in English to French."),
@@ -64,11 +64,11 @@ public class GenerativeServiceChatClientTests : TestBase
         await Verify(res);
     }
 
-    [Fact(Skip = "Not currently working.")]
+    [Fact]
     public async Task TestFunctionCalling()
     {
         var vertex = CreatePredictionServiceClient();
-        var client = new GenerativeServiceChatClient(vertex, defaultModelId: FLASH_MODEL_NAME).AsBuilder().UseFunctionInvocation().Build();
+        var client = new GenerativeServiceChatClient(vertex, defaultModelId: PRO_MODEL_NAME).AsBuilder().UseFunctionInvocation().Build();
         var options = new ChatOptions()
         {
             Tools = [AIFunctionFactory.Create(AddTwoNumbers)],

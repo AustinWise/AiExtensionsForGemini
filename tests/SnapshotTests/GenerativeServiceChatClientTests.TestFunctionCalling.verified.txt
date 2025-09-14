@@ -1,0 +1,49 @@
+﻿{
+  Messages: [
+    {
+      Role: {
+        Value: assistant
+      },
+      Text: ,
+      Contents: [
+        {
+          CallId: AddTwoNumbers,
+          Name: AddTwoNumbers,
+          Arguments: {
+            a: {},
+            b: {}
+          }
+        }
+      ]
+    },
+    {
+      Role: {
+        Value: tool
+      },
+      Text: ,
+      Contents: [
+        {
+          CallId: AddTwoNumbers,
+          Result: {
+            ValueKind: Number
+          }
+        }
+      ]
+    },
+    {
+      Role: {
+        Value: assistant
+      },
+      Text: The sum of 1087 and 5099 is 6186.,
+      Contents: [
+        {
+          Text: The sum of 1087 and 5099 is 6186.
+        }
+      ]
+    }
+  ],
+  Text: The sum of 1087 and 5099 is 6186.,
+  FinishReason: {
+    Value: stop
+  }
+}
